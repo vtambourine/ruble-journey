@@ -1,0 +1,28 @@
+{
+  "name": "currency-coordinates",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "cron": "^1.0.5",
+    "koa": "^0.13.0",
+    "koa-static": "^1.4.7",
+    "koa-swig": "^1.1.0",
+    "node-schedule": "^0.1.13",
+    "xml2js": "^0.4.4"
+  },
+  "devDependencies": {
+    "del": "^1.1.0",
+    "gulp": "^3.8.10",
+    "gulp-replace": "^0.5.0",
+    "gulp-uglify": "^1.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Benjamin Tambourine",
+  "license": "ISC"
+}
