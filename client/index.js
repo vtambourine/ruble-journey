@@ -30,7 +30,6 @@ ymaps.ready(function () {
 
     map.geoObjects.add(lineStringGeoObject);
 
-    console.log('bounds', lineStringGeometry.getBounds());
     map.setBounds(lineStringGeometry.getBounds());
 
     var placemark = new ymaps.Placemark(path[path.length - 1], {
