@@ -15,17 +15,16 @@ var geocodeUrl = 'http://geocode-maps.yandex.ru/1.x/?format=json&geocode=' + cur
 console.log(geocodeUrl);
 
 
-/*
+
 request
     .get(geocodeUrl)
     .end(function (result) {
         var data = JSON.parse(result.text);
         parsePosition(data.response.GeoObjectCollection);
     });
-*/
 
-var data = require('./data/geocoder.json');
-parsePosition(data.response.GeoObjectCollection)
+//var data = require('./data/geocoder.json');
+//parsePosition(data.response.GeoObjectCollection)
 
 function parsePosition(data) {
     console.log(data);
