@@ -1,37 +1,52 @@
 var fs = require('fs');
+var path = require('path');
+var format = require('util').format;
 var gulp = require('gulp');
+var es = require('event-stream');
+var del = require('del')
 var uglify = require('gulp-uglify');
 var replace = require('gulp-replace');
-var del = require('del');
+var rename = require('gulp-rename');
+var cached = require('gulp-cached');
+var remember = require('gulp-remember');
+var getCurrencyDynamic = require('./plugins/get-currency-dynamic');
+var parseDynamic = require('./plugins/parse-dynamic');
 
-var paths = {
-    scripts: ['client/**/*.js'],
-    template: ['client/index.html'],
-    dest: 'public'
-};
+var DATA_PATH = './data';
+var PAGES_PATH = './pages';
+var BUILD_PATH = './build';
 
-gulp.task('default', function() {
-    console.log('gulp');
-});
-
-gulp.task('clean', function(cb) {
-    del(['public'], cb);
+gulp.task('dynamic', function () {
+    ['usd', 'eur'].forEach(function (currency) {
+        getCurrencyDynamic(currency)
+            .pipe(parseDynamic())
+            .pipe(rename('current.' + currency + '.dynamic.json'))
+            .pipe(gulp.dest(DATA_PATH));
+    });
 });
 
 gulp.task('scripts', ['clean'], function() {
-    return gulp.src(paths.scripts)
+    return gulp.src(path.resolve(__dirname, PAGES_PATH, '*.js'))
         .pipe(uglify())
-        .pipe(gulp.dest(paths.dest));
+        .pipe(gulp.dest(BUILD_PATH));
 });
 
-var usd = require('./data/usd-current-dynamic.json');
-var eur = require('./data/eur-current-dynamic.json');
+gulp.task('templates', ['scripts', 'clean'], function() {
+    var usd = require('./data/current.usd.dynamic.json');
+    var eur = require('./data/current.eur.dynamic.json');
 
-gulp.task('templates', function() {
-    return gulp.src(paths.template)
+    return gulp.src(path.resolve(__dirname, PAGES_PATH, '*.html'))
         .pipe(replace('{{ USD }}', JSON.stringify(usd)))
         .pipe(replace('{{ EUR }}', JSON.stringify(eur)))
-        .pipe(gulp.dest(paths.dest));
+        .pipe(gulp.dest(BUILD_PATH));
 });
 
-gulp.task('default', ['scripts', 'templates']);
+gulp.task('clean', function(next) {
+    del([BUILD_PATH], next);
+});
+
+gulp.task('watch', function() {
+    gulp.watch(PAGES_PATH, ['pages']);
+});
+
+gulp.task('default', ['templates']);
