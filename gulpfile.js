@@ -1,5 +1,6 @@
 var fs = require('fs');
 var path = require('path');
+var mkdirp = require('mkdirp');
 var format = require('util').format;
 var gulp = require('gulp');
 var es = require('event-stream');
@@ -7,8 +8,6 @@ var del = require('del')
 var uglify = require('gulp-uglify');
 var replace = require('gulp-replace');
 var rename = require('gulp-rename');
-var cached = require('gulp-cached');
-var remember = require('gulp-remember');
 var getCurrencyDynamic = require('./plugins/get-currency-dynamic');
 var parseDynamic = require('./plugins/parse-dynamic');
 
@@ -17,6 +16,7 @@ var PAGES_PATH = './pages';
 var BUILD_PATH = './build';
 
 gulp.task('dynamic', function () {
+    mkdirp(path.resolve(__dirname, DATA_PATH));
     ['usd', 'eur'].forEach(function (currency) {
         getCurrencyDynamic(currency)
             .pipe(parseDynamic())
@@ -35,6 +35,7 @@ gulp.task('templates', ['scripts', 'clean'], function() {
     var usd = require('./data/current.usd.dynamic.json');
     var eur = require('./data/current.eur.dynamic.json');
 
+    mkdirp(path.resolve(__dirname, BUILD_PATH));
     return gulp.src(path.resolve(__dirname, PAGES_PATH, '*.html'))
         .pipe(replace('{{ USD }}', JSON.stringify(usd)))
         .pipe(replace('{{ EUR }}', JSON.stringify(eur)))

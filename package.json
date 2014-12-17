@@ -11,6 +11,7 @@
     "gulp-replace": "^0.5.0",
     "gulp-uglify": "^1.0.2",
     "gulp-xml2json": "^0.1.4",
+    "mkdirp": "^0.5.0",
     "superagent": "^0.21.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.0.0"
