@@ -2,8 +2,8 @@ var request = require('superagent');
 var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
 
-var eurDynamics = require('./data/usd-current-dynamic.json').data;
-var usdDynamics = require('./data/eur-current-dynamic.json').data;
+var eurDynamics = require('./data/current.usd.dynamic.json').data;
+var usdDynamics = require('./data/current.eur.dynamic.json').data;
 
 var currentCoordinates = [
     usdDynamics[eurDynamics.length - 1].value,

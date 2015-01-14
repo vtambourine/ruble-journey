@@ -1,0 +1,39 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font: 12px Helvetica, Arial, sans-serif;
+}
+#ymaps {
+    width: 100%;
+    height: 100%;
+}
+#about {
+    position: absolute;
+    width: 300px;
+    padding: 20px;
+    right: 30px;
+    top: 30px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+@media screen and (max-width: 480px) {
+    #about {
+        display: none;
+    }
+}
+
+h1, h2, h3, p {
+    font-weight: normal;
+    margin: 0 0 1em;
+}
+
+h1 {
+    font-size: 18px;
+}
+
+#tweet {
+    margin-top: 1.5em;
+}

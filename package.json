@@ -14,7 +14,10 @@
     "mkdirp": "^0.5.0",
     "superagent": "^0.21.0",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.0.0"
+    "vinyl-source-stream": "^1.0.0",
+    "xml2js": "^0.4.4",
+    "xml2json": "^0.5.1",
+    "xml2json-command": "0.0.2"
   },
   "license": "ISC",
   "private": true

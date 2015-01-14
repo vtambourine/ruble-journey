@@ -33,7 +33,7 @@ function getCurrencyDynamicFilename(currency, start, end) {
 
 var getCurrencyDynamic = function (currency) {
     var end = new Date(Date.now() + 1000 * 60 * 60 * 24);
-    var start = new Date(end.getTime() - 1000 * 60 * 60 * 24 * 365 * 2);
+    var start = new Date(end.getTime() - 1000 * 60 * 60 * 24 * 365 * 1);
 
     var filename = getCurrencyDynamicFilename(currency, start, end);
     var stream = source(filename);

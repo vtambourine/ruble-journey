@@ -12,6 +12,7 @@ git branch -D gh-pages
 git co --orphan gh-pages
 git rm -fr .
 cp ../build/* .
+cp ../CNAME .
 git add .
 git ci -m "Upadating page"
 git push origin +gh-pages
