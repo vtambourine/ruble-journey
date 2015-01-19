@@ -3,7 +3,7 @@ XML2JSON = $(NPM_BIN)/xml2json
 HTML_MINIFIER = $(NPM_BIN)/html-minifier
 
 .PHONY: all
-all: rates
+all: build
 	@echo "Done."
 
 .PHONY: ping
@@ -32,7 +32,7 @@ data/%-rates.normalized.json: data/%-rates.json
 	@node tools/normalize-rates.js $^ $@
 
 .PHONY: rates
-rates: data/usd-rates.json data/eur-rates.json
+rates: data/usd-rates.normalized.json data/eur-rates.normalized.json
 
 build/index.html: rates
 	@jade pages/index.jade --out build
@@ -59,10 +59,17 @@ gh-pages:
 		git init; \
 		git remote add --fetch origin "$(REPO)"; \
 	fi;
-	@git checkout --orphan gh-pages;
+
+	@if git rev-parse --verify origin/gh-pages > /dev/null 2>&1; \
+	then \
+		git checkout gh-pages; \
+	else \
+		git checkout --orphan gh-pages; \
+	fi;
+
 	@git add .
 	@git commit -m "Build pages"
-#	@git push origin gh-pages
+	@git push origin +gh-pages
 	@echo "Done"
 
 .PHONY: clean
