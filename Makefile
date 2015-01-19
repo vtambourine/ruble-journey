@@ -1,4 +1,6 @@
-XML2JSON = ./node_modules/.bin/xml2json
+NPM_BIN = ./node_modules/.bin
+XML2JSON = $(NPM_BIN)/xml2json
+HTML_MINIFIER = $(NPM_BIN)/html-minifier
 
 .PHONY: all
 all: rates
@@ -26,11 +28,15 @@ data/eur-rates.xml:
 data/%-rates.json: data/%-rates.xml
 	@$(XML2JSON) < $< > $@
 
+data/%-rates.normalized.json: data/%-rates.json
+	@node tools/normalize-rates.js $^ $@
+
 .PHONY: rates
 rates: data/usd-rates.json data/eur-rates.json
 
 build/index.html: rates
 	@jade pages/index.jade --out build
+	@$(HTML_MINIFIER) --minify-js --minify-css --remove-comments-from-cdata $@ -o $@
 
 .PHONY: build
 build: build/index.html
