@@ -9,25 +9,26 @@ all: build
 #START_DATE=`date -v-1y +"%d/%m/%Y"`
 START_DATE = 01/01/2014
 END_DATE = $(shell date -v+1d +"%d/%m/%Y")
+DATE_FILE_MARK = $(subst /,,$(END_DATE))
 
 define get-rates
 curl "http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1=${START_DATE}&date_req2=${END_DATE}&VAL_NM_RQ=$1" -o $@
 endef
 
-data/usd-rates.xml:
+data/$(DATE_FILE_MARK).usd.xml:
 	$(call get-rates,R01235)
 
-data/eur-rates.xml:
+data/$(DATE_FILE_MARK).eur.xml:
 	$(call get-rates,R01239)
 
-data/%-rates.json: data/%-rates.xml
+data/%.json: data/$(DATE_FILE_MARK).%.xml
 	@$(XML2JSON) < $< > $@
 
-data/%-rates.normalized.json: data/%-rates.json
+data/%.normalized.json: data/%.json
 	@node tools/normalize-rates.js $^ $@
 
 .PHONY: rates
-rates: data/usd-rates.normalized.json data/eur-rates.normalized.json
+rates: data/usd.normalized.json data/eur.normalized.json
 
 build/index.html: rates
 	@jade pages/index.jade --out build
