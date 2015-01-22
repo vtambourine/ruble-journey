@@ -6,14 +6,9 @@ HTML_MINIFIER = $(NPM_BIN)/html-minifier
 all: build
 	@echo "Done."
 
-.PHONY: ping
-ping:
-	@echo "Hello!"
-	@ls
-
 #START_DATE=`date -v-1y +"%d/%m/%Y"`
 START_DATE = 01/01/2014
-END_DATE = $(shell date +"%d/%m/%Y")
+END_DATE = $(shell date -v+1d +"%d/%m/%Y")
 
 define get-rates
 curl "http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1=${START_DATE}&date_req2=${END_DATE}&VAL_NM_RQ=$1" -o $@
