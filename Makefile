@@ -64,7 +64,7 @@ gh-pages:
 	fi;
 
 	@git add .
-	@git commit -m "Build pages"
+	@git commit --allow-empty -m "Build pages"
 	@git push origin +gh-pages
 	@echo "Done"
 
