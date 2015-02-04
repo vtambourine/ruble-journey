@@ -2,7 +2,6 @@ NPM_BIN = ./node_modules/.bin
 XML2JSON = $(NPM_BIN)/xml2json
 HTML_MINIFIER = $(NPM_BIN)/html-minifier
 
-
 #START_DATE=`date -v-1y +"%d/%m/%Y"`
 START_DATE = 01/01/2014
 
