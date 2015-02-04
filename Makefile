@@ -6,7 +6,7 @@ HTML_MINIFIER = $(NPM_BIN)/html-minifier
 START_DATE = 01/01/2014
 
 OS_NAME = $(shell uname -o)
-ifeq ($OS_NAME, "GNU/Linux")
+ifeq ($(OS_NAME), GNU/Linux)
   END_DATE = $(shell date --date="now")
 else
   END_DATE = $(shell date -v+1d +"%d/%m/%Y")
