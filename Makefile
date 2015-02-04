@@ -4,11 +4,16 @@ HTML_MINIFIER = $(NPM_BIN)/html-minifier
 
 .PHONY: all
 all: build
-	@echo "Done."
 
 #START_DATE=`date -v-1y +"%d/%m/%Y"`
 START_DATE = 01/01/2014
-END_DATE = $(shell date -v+1d +"%d/%m/%Y")
+
+OS_NAME = $(shell uname -o)
+ifneq ($OS_NAME, "GNU/Linux")
+  END_DATE = `date --date="now"`
+else
+  END_DATE = `date -v+1d +"%d/%m/%Y"`
+endif
 DATE_FILE_MARK = $(subst /,,$(END_DATE))
 
 define get-rates
