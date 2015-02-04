@@ -2,14 +2,12 @@ NPM_BIN = ./node_modules/.bin
 XML2JSON = $(NPM_BIN)/xml2json
 HTML_MINIFIER = $(NPM_BIN)/html-minifier
 
-.PHONY: all
-all: build
 
 #START_DATE=`date -v-1y +"%d/%m/%Y"`
 START_DATE = 01/01/2014
 
 OS_NAME = $(shell uname -o)
-ifneq ($OS_NAME, "GNU/Linux")
+ifeq ($OS_NAME, "GNU/Linux")
   END_DATE = $(shell date --date="now")
 else
   END_DATE = $(shell date -v+1d +"%d/%m/%Y")
@@ -19,6 +17,9 @@ DATE_FILE_MARK = $(subst /,,$(END_DATE))
 define get-rates
 curl "http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1=${START_DATE}&date_req2=${END_DATE}&VAL_NM_RQ=$1" -o $@
 endef
+
+.PHONY: all
+all: build
 
 data/$(DATE_FILE_MARK).usd.xml:
 	$(call get-rates,R01235)
