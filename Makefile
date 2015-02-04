@@ -10,9 +10,9 @@ START_DATE = 01/01/2014
 
 OS_NAME = $(shell uname -o)
 ifneq ($OS_NAME, "GNU/Linux")
-  END_DATE = `date --date="now"`
+  END_DATE = $(shell date --date="now")
 else
-  END_DATE = `date -v+1d +"%d/%m/%Y"`
+  END_DATE = $(shell date -v+1d +"%d/%m/%Y")
 endif
 DATE_FILE_MARK = $(subst /,,$(END_DATE))
 
