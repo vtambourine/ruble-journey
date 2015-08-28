@@ -20,6 +20,9 @@ endef
 .PHONY: all
 all: build
 
+data:
+	@mkdir data
+
 data/$(DATE_FILE_MARK).usd.xml:
 	$(call get-rates,R01235)
 
@@ -35,7 +38,7 @@ data/%.normalized.json: data/%.json
 .PHONY: rates
 rates: data/usd.normalized.json data/eur.normalized.json
 
-build/index.html: rates
+build/index.html: data rates
 	@jade pages/index.jade --out build
 	@$(HTML_MINIFIER) --minify-js --minify-css --remove-comments-from-cdata $@ -o $@
 
