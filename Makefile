@@ -5,7 +5,7 @@ HTML_MINIFIER = $(NPM_BIN)/html-minifier
 #START_DATE=`date -v-1y +"%d/%m/%Y"`
 START_DATE = 01/01/2014
 
-OS_NAME = $(shell uname -o)
+OS_NAME = $(shell uname)
 ifeq ($(OS_NAME), GNU/Linux)
   END_DATE = $(shell date --date="now")
 else
@@ -58,22 +58,23 @@ release:
 .PHONY: gh-pages
 gh-pages:
 	@echo "Pages"
+	@pwd
 	@if [ ! -d ".git" ]; \
 	then \
 		git init; \
 		git remote add --fetch origin "$(REPO)"; \
 	fi;
-
+	
 	@if git rev-parse --verify origin/gh-pages > /dev/null 2>&1; \
 	then \
 		git checkout gh-pages; \
 	else \
 		git checkout --orphan gh-pages; \
 	fi;
-
-	@git add .
-	@git commit --allow-empty -m "Build pages"
-	@git push origin +gh-pages
+	#
+	# @git add .
+	# @git commit --allow-empty -m "Build pages"
+	# @git push origin +gh-pages
 	@echo "Done"
 
 .PHONY: clean

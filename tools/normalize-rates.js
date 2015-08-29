@@ -11,9 +11,10 @@ try {
 }
 
 var data = content.ValCurs.Record.map(function (record) {
+    console.log(record);
     return {
         date: record.Date,
-        value: parseFloat(record.Value.$t.replace(',', '.'))
+        value: parseFloat(record.Value.replace(',', '.'))
     }
 });
 
