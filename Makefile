@@ -39,7 +39,7 @@ data/%.normalized.json: data/%.json
 rates: data/usd.normalized.json data/eur.normalized.json
 
 build/index.html: data rates
-	@jade pages/index.jade --out build
+	@./node_modules/.bin/jade pages/index.jade --out build
 	@$(HTML_MINIFIER) --minify-js --minify-css --remove-comments-from-cdata $@ -o $@
 
 .PHONY: build
@@ -64,7 +64,7 @@ gh-pages:
 		git init; \
 		git remote add --fetch origin "$(REPO)"; \
 	fi;
-	
+
 	@if git rev-parse --verify origin/gh-pages > /dev/null 2>&1; \
 	then \
 		git checkout gh-pages; \
